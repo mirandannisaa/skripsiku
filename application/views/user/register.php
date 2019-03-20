@@ -47,21 +47,27 @@
                             </a>
                         </div>
                         <div class="login-form">
+                        <?php echo form_open('user/register'); ?>
                             <form action="" method="post">
+                            <div class="form-group">
+                                    <label>Nama</label>
+                                    <input class="au-input au-input--full" type="text" name="nama" id="nama" placeholder="Nama">
+                                </div>
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Username">
+                                    <input class="au-input au-input--full" type="text" name="username" id="username" placeholder="Username">
                                 </div>
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <input class="au-input au-input--full" type="email" name="email" id="email" placeholder="Email">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                    <input class="au-input au-input--full" type="password" name="password" id="password" placeholder="Password">
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--blue m-b-20" type="submit">Register</button>
+                                <button class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" id="register">Register</button>
                             </form>
+                            <?php echo form_close(); ?>
                             <div class="register-link">
                                 <p>
                                     Already have account?

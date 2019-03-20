@@ -17,7 +17,7 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|md5');
 		$this->load->model('User_model');	
 		$data = array(
 						'error' => '',
@@ -29,16 +29,20 @@ class User extends CI_Controller {
 					if($this->form_validation->run()==FALSE){
 						$this->load->view('user/register', $data);			
 					}else{
-						$this->User_model->insertFasilitas();
+						$this->User_model->register();
 						echo '<script type="text/javascript">alert("Data Berhasil di ditambahkan!!")</script>';
-						redirect('login', 'refresh');
+						redirect('user/login', 'refresh');
 					}
 	}
 
 	public function login()
 	{
-        
 		$this->load->view('user/login');
-		//$this->load->view('partials/footer');
+	}
+
+	public function logout(){
+		$this->session->unset_userdata('username');
+		session_destroy();
+		redirect('user/login');
 	}
 }

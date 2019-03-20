@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Malang Sports Information System</title>
     <meta charset="utf-8">
@@ -19,7 +18,7 @@
                         <strong>Edit</strong> Fasilitas
                     </div>
                     <div class="card-body card-block">
-                        <?php echo form_open_multipart('admin/editFasilitas/'.$this->uri->segment(3)); ?>
+                        <?php echo form_open_multipart('admin/editolahraga/'.$this->uri->segment(3)); ?>
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                 <div class="row form-group">
                                     <div class="col col-md-3">
@@ -34,7 +33,7 @@
                                         <label for="text-input" class="form-control-label">Nama Fasilitas</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="nama_fasilitas" name="nama_fasilitas" placeholder="Nama Fasilitas" class="form-control" value="<?php echo $fasilitas_list[0]->nama_fasilitas ?>">
+                                        <input type="text" id="nama_olahraga" name="nama_olahraga" placeholder="Nama Olahraga" class="form-control" value="<?php echo $olahraga_list[0]->nama_olahraga ?>">
                                     </div>
 
                                 </div>
