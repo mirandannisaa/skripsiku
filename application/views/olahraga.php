@@ -118,29 +118,22 @@
 									<!-- Result Item -->
 									<div class="grid-item result coffee">
 										<div class="listing" style="height: 450px;">
+										<?php foreach ($tempat_list as $key) { ?>
 											<div class="listing_image">
-												<div class="listing_icon"><a href="listing.html"><img src="asset/images/white/joggingw.png" alt="" style="width:25px; heigth:auto;"></a></div>
-												<img src="asset/images/listing_1.jpg" alt="">
+												<?php echo $key->foto ?>
 											</div>
 											<div class="listing_title_container">
-												<div class="listing_title"><a href="listing.html">The Meal</a></div>
+												<div class="listing_title"><a href=""><?php echo $key->nama_tempat ?></a></div>
 												<div class="listing_info d-flex flex-row align-items-center justify-content-between">
 													<div class="listing_rating">4,5</div>
-													<div class="listing_price">$$$</div>
+													<div class="listing_price"><?php echo $key->jenis_olahraga ?></div>
 													<div class="listing_divider">|</div>
-													<div class="listing_type">Restaurant</div>
+													<div class="listing_type"><?php echo $key->alamat ?></div>
 													<div class="listing_divider">|</div>
-													<div class="listing_status">Closed</div>
+													<div class="listing_status"><?php echo $key->jam_buka ?> - <?php echo $key->jam_tutup ?></div>
 												</div>
 											</div>
-											<div class="listing_testimonial" style=" padding: 2%;">
-												<div class="d-flex flex-row align-items-center justify-content-start">
-													<div class="testimonial_image"><img src="asset/images/user_1.jpg" alt=""></div>
-													<div class="testimonial_text">
-														<p>Great place to visit, the food is awesome, I really love it.</p>
-													</div>
-												</div>
-											</div>
+											<?php } ?>
 										</div>
 									</div>			
 									

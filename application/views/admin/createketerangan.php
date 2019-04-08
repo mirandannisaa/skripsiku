@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
+<head>
       <title>Malang Sports Information System</title>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,11 +14,10 @@
                <div class="card">
                
                   <div class="card-header">
-                     <strong>Tambah</strong> Fasilitas
+                     <strong>Tambah</strong> Detail Tempat Olahraga
                   </div>
                   <div class="card-body card-block">
-                  <?php echo form_open('admin/createfasilitas'); ?>
-                  
+                  <?php echo form_open('admin/createketerangan'); ?>
                         <div class="row form-group">
                         
                            <div class="col col-md-3">
@@ -30,13 +29,28 @@
                         </div>
                         <div class="row form-group">
                            <div class="col col-md-3">
-                              <label for="text-input" class="form-control-label">Nama Fasilitas</label>
+                              <label for="text-input" class="form-control-label">Jenis Olahraga</label>
                            </div>
                            <div class="col-12 col-md-9">
-                              <input type="text" id="nama_fasilitas" name="nama_fasilitas" placeholder="Nama Fasilitas" class="form-control">
-                              <small class="form-text text-muted">Masukkan Nama Fasilitas</small>
+                              <select class='form-control' id='id_jenis' name='id_jenis'>
+                                 <option value='0'>--pilih--</option>
+                                    <?php 
+                                       foreach ($keterangan as $key) {
+                                       echo "<option value='$key->id_jenis'>$key->nama_olahraga</option>";
+                                       }
+                                    ?>
+                                 <span class="text-danger"><font color='red'><?php echo form_error('id_jenis'); ?></font></span>
+                              </select>
                            </div>
-                           
+                        </div>
+                        <div class="row form-group">
+                           <div class="col col-md-3">
+                              <label for="text-input" class="form-control-label">Detail Keterangan</label>
+                           </div>
+                           <div class="col-12 col-md-9">
+                              <input type="text" id="keterangan" name="keterangan" placeholder="Detail Keterangan" class="form-control">
+                              <small class="form-text text-muted">Masukkan Detail Keterangan</small>
+                           </div>
                         </div>
                   
                      <center>

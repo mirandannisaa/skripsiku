@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div class="site-wrap">
+<div class="site-wrap" style="padding : 10%;">
 	<div class="site-blocks-cover overlay" style="background-image: url(asset/images/swim.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">

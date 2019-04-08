@@ -19,7 +19,6 @@
                     </div>
                     <div class="card-body card-block">
                         <?php echo form_open_multipart('admin/editolahraga/'.$this->uri->segment(3)); ?>
-                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label class=" form-control-label">Username</label>
@@ -36,8 +35,7 @@
                                         <input type="text" id="nama_olahraga" name="nama_olahraga" placeholder="Nama Olahraga" class="form-control" value="<?php echo $olahraga_list[0]->nama_olahraga ?>">
                                     </div>
 
-                                </div>
-                            </form>
+                                </div>                    
                             <center>
                                 <button type="submit" id="submit-button" class="btn btn-primary" name="action" value="CONFIRM">Save</button>
                                 <button type="reset" class="btn btn-danger" id="cancel-button" name="action" value="CANCEL">Cancel</button>

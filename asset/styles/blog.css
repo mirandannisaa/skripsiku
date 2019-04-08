@@ -32,6 +32,7 @@
 .blog_post
 {
 	width: calc(100% / 3);
+	height: 600px;
 	padding-left: 15px;
 	padding-right: 15px;
 	margin-bottom: 39px;
