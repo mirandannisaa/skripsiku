@@ -142,38 +142,24 @@ class Admin_model extends CI_Model {
 			$this->db->join('fasilitas', 'fasilitas.id_fasilitas = tempatfasilitas.id_fasilitas');
 			$this->db->join('jenis_olahraga', 'keterangan.id_jenis = jenis_olahraga.id_jenis');
 			$this->db->join('fototempat', 'tempat.id_tempat = fototempat.id_tempat');
+			$this->db->group_by('tempat.id_tempat'); 
 			$query = $this->db->get('tempat');
+			return $query->result();
+		}
+
+		public function getFoto($id_tempat)
+		{
+			$this->db->select("*");
+			$this->db->join('tempat', 'tempat.id_tempat = fototempat.id_tempat');
+			$this->db->where('fototempat.id_tempat', $id_tempat);
+			$query = $this->db->get('fototempat');
 			return $query->result();
 		}
 
 		public function getTempat($id_tempat)
 		{
 			$this->db->select("*");
-			$this->db->where('id_tempat', $id_tempat);
-			$this->db->join('tempatfasilitas', 'tempat.id_tempat = tempatfasilitas.id_tempat');
-			$this->db->join('tempatketerangan', 'tempat.id_tempat = tempatketerangan.id_tempat');
-			$this->db->join('fototempat', 'tempat.id_tempat = fototempat.id_tempat');
-			$query = $this->db->get('tempat');
-			return $query->result();
-		}
-
-		public function getDataTempatFasilitas()
-		{
-			$this->db->select("*");
-			$this->db->join('tempatfasilitas', 'tempat.id_tempat = tempatfasilitas.id_tempat');
-			$this->db->join('tempatketerangan', 'tempat.id_tempat = tempatketerangan.id_tempat');
-			$this->db->join('keterangan', 'keterangan.id_keterangan = tempatketerangan.id_keterangan');
-			$this->db->join('fasilitas', 'fasilitas.id_fasilitas = tempatfasilitas.id_fasilitas');
-			$this->db->join('jenis_olahraga', 'keterangan.id_jenis = jenis_olahraga.id_jenis');
-			$this->db->join('fototempat', 'tempat.id_tempat = fototempat.id_tempat');
-			$query = $this->db->get('tempat');
-			return $query->result();
-		}
-
-		public function getTempatFasilitas($id_tempat)
-		{
-			$this->db->select("*");
-			$this->db->where('id_tempat', $id_tempat);
+			$this->db->where('tempat.id_tempat', $id_tempat);
 			$this->db->join('tempatfasilitas', 'tempat.id_tempat = tempatfasilitas.id_tempat');
 			$this->db->join('tempatketerangan', 'tempat.id_tempat = tempatketerangan.id_tempat');
 			$this->db->join('fototempat', 'tempat.id_tempat = fototempat.id_tempat');
@@ -188,6 +174,7 @@ class Admin_model extends CI_Model {
 				'alamat' => $this->input->post('alamat'),
 				'no_telp' => $this->input->post('no_telp'),
 				'harga' => $this->input->post('harga'),
+				'hari_buka' => $this->input->post('hari_buka'),
 				'jam_buka' => $this->input->post('jam_buka'),
 				'jam_tutup' => $this->input->post('jam_tutup'),
 				'latitude' => $this->input->post('latitude'),
@@ -206,10 +193,12 @@ class Admin_model extends CI_Model {
 				'alamat' => $this->input->post('alamat'),
 				'no_telp' => $this->input->post('no_telp'),
 				'harga' => $this->input->post('harga'),
+				'hari_buka' => $this->input->post('hari_buka'),
 				'jam_buka' => $this->input->post('jam_buka'),
 				'jam_tutup' => $this->input->post('jam_tutup'),
 				'latitude' => $this->input->post('latitude'),
 				'longitude' => $this->input->post('longitude'),
+				'foto' => $this->input->post('foto')
 				);
 			$this->db->where('id_tempat', $id_tempat);
 			$this->db->update('tempat', $data);

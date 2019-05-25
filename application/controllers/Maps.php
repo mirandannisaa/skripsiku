@@ -1,6 +1,9 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
- class Maps extends CI_Controller {
-
+<?php
+class Maps extends CI_Controller{
+    function __construct(){
+        parent::__construct();
+ 
+    }
     function index(){
         $this->load->library('googlemaps');
             $config=array();
@@ -12,6 +15,6 @@
             $marker['position']="37.4419, -122.1419";
             $this->googlemaps->add_marker($marker);
             $data['map']=$this->googlemaps->create_map();
-        $this->load->view('ci_maps',$data);
+        $this->load->view('olahraga',$data);
     }
- }
+}

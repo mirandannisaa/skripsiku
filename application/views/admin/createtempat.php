@@ -63,6 +63,15 @@
                         </div>
                         <div class="row form-group">
                            <div class="col col-md-3">
+                              <label for="text-input" class="form-control-label">Kecamatan</label>
+                           </div>
+                           <div class="col-12 col-md-9">
+                              <input type="text" id="kecamatan" name="kecamatan" placeholder="Kecamatan" class="form-control">
+                              <small class="form-text text-muted">Masukkan Kecamatan</small>
+                           </div>
+                        </div>
+                        <div class="row form-group">
+                           <div class="col col-md-3">
                               <label for="text-input" class="form-control-label">Nomor Telepon</label>
                            </div>
                            <div class="col-12 col-md-9">
@@ -77,6 +86,15 @@
                            <div class="col-12 col-md-9">
                               <input type="text" id="harga" name="harga" placeholder="Harga" class="form-control">
                               <small class="form-text text-muted">Masukkan Harga</small>
+                           </div>
+                        </div>
+                        <div class="row form-group">
+                           <div class="col col-md-3">
+                              <label for="text-input" class="form-control-label">Hari Buka</label>
+                           </div>
+                           <div class="col-12 col-md-9">
+                              <input type="text" id="hari_buka" name="hari_buka" placeholder="Hari Buka" class="form-control">
+                              <small class="form-text text-muted">Masukkan Hari Buka</small>
                            </div>
                         </div>
                         <div class="row form-group">

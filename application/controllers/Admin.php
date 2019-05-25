@@ -1,22 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
  class Admin extends CI_Controller {
+
 	// public function __construct(){
 	// 	parent::__construct();
 	// 	if ($this->session->userdata('username')=="") {
 	// 		redirect('login');
-	// 	}elseif($this->session->userdata('akses') == 'admin'){
+	// 	}elseif($this->session->userdata('username') == 'admin'){
 	// 		redirect('admin');
 	// 	}
 	// }
+	
 	public function index() {
 		$this->load->model('Admin_model');
-		$this->load->view('partials/header');
+		$this->load->view('partials/adminheader');
 		$data["fasilitas_list"]=$this->Admin_model->getDataFasilitas();
 		$data["olahraga_list"]=$this->Admin_model->getDataOlahraga();
 		$data["detail_list"]=$this->Admin_model->getDataKeterangan();
 		$data["tempat_list"]=$this->Admin_model->getDataTempat();
-		$this->load->view('admin/home', $data);
-		$this->load->view('partials/footer');
+		$this->load->view('admin/homeadmin', $data);
+		$this->load->view('partials/adminfooter');
 	}
 	
 	// Fasilitas
@@ -32,9 +34,9 @@
 		$this->load->model('Admin_model');
 		$data=array('error'=>'', 'nama_fasilitas'=> $this->session->userdata('nama_fasilitas'), );
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
+			$this->load->view('partials/adminheader');
 			$this->load->view('admin/createfasilitas', $data);
-			$this->load->view('partials/footer');
+			$this->load->view('partials/adminfooter');
 		}
 		else {
 			$this->Admin_model->insertFasilitas();
@@ -50,9 +52,9 @@
 		$this->load->model('Admin_model');
 		$data['fasilitas_list']=$this->Admin_model->getFasilitas($id_fasilitas);
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
+			$this->load->view('partials/adminheader');
 			$this->load->view('admin/editfasilitas', $data);
-			$this->load->view('partials/footer');
+			$this->load->view('partials/adminfooter');
 		}
 		else {
 			$this->Admin_model->updateFasilitas($id_fasilitas);
@@ -79,9 +81,9 @@
 		$this->load->model('Admin_model');
 		$data=array('error'=>'', 'nama_olahraga'=> $this->session->userdata('nama_olahraga'), );
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
+			$this->load->view('partials/adminheader');
 			$this->load->view('admin/createolahraga', $data);
-			$this->load->view('partials/footer');
+			$this->load->view('partials/adminfooter');
 		}
 		else {
 			$this->Admin_model->insertOlahraga();
@@ -97,9 +99,9 @@
 		$this->load->model('Admin_model');
 		$data['olahraga_list']=$this->Admin_model->getOlahraga($id_jenis);
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
+			$this->load->view('partials/adminheader');
 			$this->load->view('admin/editolahraga', $data);
-			$this->load->view('partials/footer');
+			$this->load->view('partials/adminfooter');
 		}
 		else {
 			$this->Admin_model->updateOlahraga($id_jenis);
@@ -127,9 +129,9 @@
 		$this->load->model('Admin_model');
 		$data['keterangan']=$this->Admin_model->getDataOlahraga();
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
+			$this->load->view('partials/adminheader');
 			$this->load->view('admin/createketerangan', $data);
-			$this->load->view('partials/footer');
+			$this->load->view('partials/adminfooter');
 		}
 		else {
 			$this->Admin_model->insertKeterangan();
@@ -145,11 +147,11 @@
 		$this->load->model('Admin_model');
 		$data['keterangan']=$this->Admin_model->getDataOlahraga();
 		$data['detail_list']=$this->Admin_model->getKeterangan($id_keterangan);
-		//print_r($data);
+		
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
+			$this->load->view('partials/adminheader');
 			$this->load->view('admin/editketerangan', $data);
-			$this->load->view('partials/footer');
+			$this->load->view('partials/adminfooter');
 		}
 		else {
 			$this->Admin_model->updateKeterangan($id_keterangan);
@@ -165,8 +167,22 @@
 	}
 	// Tempat Olahraga
 	public function getTempat() {
-		$data=array('error'=>'', 'nama_tempat'=> $this->session->userdata('nama_tempat'), 'alamat'=> $this->session->userdata('alamat'), 'no_telp'=> $this->session->userdata('no_telp'), 'harga'=> $this->session->userdata('harga'), 'jam_buka'=> $this->session->userdata('jam_buka'), 'jam_tutup'=> $this->session->userdata('jam_tutup'), 'latitude'=> $this->session->userdata('latitude'), 'longitude'=> $this->session->userdata('longitude'), 'fasilitas'=> $this->session->userdata('fasilitas'), 'keterangan'=> $this->session->userdata('keterangan'), 'foto'=> $this->session->userdata('foto'));
-		$data["tempat_list"]=$this->Admin_model->getDataTempat();
+		$data=array(
+			'error'=>'',
+			'nama_tempat'=> $this->session->userdata('nama_tempat'), 
+			'alamat'=> $this->session->userdata('alamat'), 
+			'kecamatan'=> $this->session->userdata('kecamatan'), 
+			'no_telp'=> $this->session->userdata('no_telp'), 
+			'harga'=> $this->session->userdata('harga'), 
+			'hari_buka'=> $this->session->userdata('hari_buka'), 
+			'jam_buka'=> $this->session->userdata('jam_buka'), 
+			'jam_tutup'=> $this->session->userdata('jam_tutup'), 
+			'latitude'=> $this->session->userdata('latitude'), 
+			'longitude'=> $this->session->userdata('longitude'), 
+			'fasilitas'=> $this->session->userdata('fasilitas'), 
+			'keterangan'=> $this->session->userdata('keterangan'), 
+			'foto'=> $this->session->userdata('foto'));
+		$data["tempat_list"]=$this->Admin_model->getTempat();
 		$this->load->view('admin/home', $data);
 	}
 	public function createtempat() {
@@ -176,13 +192,23 @@
 		$this->load->model('Admin_model');
 		$this->load->model('files');
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
+			$this->load->view('partials/adminheader');
 			$this->load->view('admin/createtempat');
-			$this->load->view('partials/footer');
-
+			$this->load->view('partials/adminfooter');
 		}
 		else {
-			$object = array('nama_tempat'=> $this->input->post('tempat_olahraga'), 'alamat'=> $this->input->post('alamat'), 'no_telp'=> $this->input->post('no_telp'), 'harga'=> $this->input->post('harga'), 'jam_buka'=> $this->input->post('jam_buka'), 'jam_tutup'=> $this->input->post('jam_tutup'), 'latitude'=> $this->input->post('latitude'), 'longitude'=> $this->input->post('longitude'), );
+			$object = array(
+			'nama_tempat'=> $this->input->post('tempat_olahraga'), 
+			'alamat'=> $this->input->post('alamat'), 
+			'kecamatan'=> $this->input->post('kecamatan'), 
+			'no_telp'=> $this->input->post('no_telp'), 
+			'harga'=> $this->input->post('harga'), 
+			'hari_buka'=> $this->input->post('hari_buka'), 
+			'jam_buka'=> $this->input->post('jam_buka'), 
+			'jam_tutup'=> $this->input->post('jam_tutup'), 
+			'latitude'=> $this->input->post('latitude'), 
+			'longitude'=> $this->input->post('longitude')
+		);
 			$this->db->insert('tempat', $object);
 			$insertid=$this->db->insert_id();
 			$data=$this->input->post('fasilitas[]');
@@ -225,32 +251,31 @@
 				}
 			}
 			echo'<script type="text/javascript">alert("Data berhasil ditambahkan")</script>';
-			redirect('admin',
-			'refresh');
+			redirect('admin', 'refresh');
 		}
 	}
+	
 	public function edittempat($id_tempat) {
 		$this->load->helper('url', 'form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('tempat_olahraga', 'Nama Tempat', 'trim|required');
 		$this->load->model('Admin_model');
 		$this->load->model('files');
-		$data_1['tempat'] = $this->Admin_model->getDataTempat($id_tempat);
-		$data_2 = $this->Admin_model->getDataTempat($id_tempat);
-		$name = $data_2[0]->foto;
+		$data['tempat_list'] = $this->Admin_model->getTempat($id_tempat);
 
 		if($this->form_validation->run()==FALSE) {
-			$this->load->view('partials/header');
-			$this->load->view('admin/edittempat');
-			$this->load->view('partials/footer');
+			$this->load->view('partials/adminheader');
+			$this->load->view('admin/edittempat', $data);
+			$this->load->view('partials/adminfooter');
 
-		}
-		else {
+		} else {
 			$object = array(
 				'nama_tempat'=> $this->input->post('tempat_olahraga'),
 				'alamat'=> $this->input->post('alamat'),
+				'kecamatan'=> $this->input->post('kecamatan'),
 				'no_telp'=> $this->input->post('no_telp'),
 				'harga'=> $this->input->post('harga'),
+				'hari_buka'=> $this->input->post('hari_buka'), 
 				'jam_buka'=> $this->input->post('jam_buka'),
 				'jam_tutup'=> $this->input->post('jam_tutup'),
 				'latitude'=> $this->input->post('latitude'),
@@ -260,7 +285,7 @@
 			$insertid=$this->db->insert_id();
 			$data  =$this->input->post('fasilitas[]');
 			foreach($data as $object) {
-				$this->Admin_model->updateFasilitasku(array('id_fasilitas'=>$object, 'id_tempat'=>$insertid));
+				$this->Admin_model->updateFasilitas(array('id_fasilitas'=>$object, 'id_tempat'=>$insertid));
 			}
 			$dataKeterangan=$this->input->post('keterangan[]');
 			foreach($dataKeterangan as $object) {
@@ -299,8 +324,7 @@
 				}
 			}
 			echo'<script type="text/javascript">alert("Data berhasil diupdate")</script>';
-			redirect('admin',
-			'refresh');
+			redirect('admin', 'refresh');
 		}
 	}
 	public function deletetempat($id_tempat) {

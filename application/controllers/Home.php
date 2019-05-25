@@ -3,12 +3,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
+        // public function __construct(){
+	// 	parent::__construct();
+	// 	if ($this->session->userdata('username')=="") {
+	// 		redirect('login');
+	// 	}elseif($this->session->userdata('username') == 'admin'){
+	// 		redirect('admin');
+	// 	}
+	// }
+
+        var $nama_tempat = 'autocomplete';
+        // function __construct(){
+        //         // parent::__construct();
+        //         // if ($this->session->userdata('username')=="") {
+	// 	// 	redirect('login');
+	// 	// }elseif($this->session->userdata('username') == 'admin'){
+	// 	// 	redirect('admin');
+	// 	// }
+        //         $this->load->model('Home_model');
+        // }
+
 	public function index()
 	{
                 $this->load->model('Home_model');
-                $this->load->view('partials/header');
                 $data['tempat_list']=$this->Home_model->getDataTempat();
-                
+                $this->load->view('partials/headerhome');
                 $this->load->view('home', $data);
                 $this->load->view('partials/footer');
         }
@@ -27,5 +46,18 @@ class Home extends CI_Controller {
                 'foto'=> $this->session->userdata('foto'));
 		$data['tempat_list']=$this->Home_model->getDataTempat();
 		$this->load->view('home', $data);
-	}
+        }
+
+        
+        
+        public function auto_complete(){
+                if(isset($_GET['term'])){
+                        $result = $this->Home_model->search_tempat($_GET['term']);
+                        if(count($result) > 0){
+                                foreach($result as $row)
+                                $arr_result[] = $row->nama_tempat;
+                                echo json_encode($arr_result);
+                        }
+                }
+        }         
 }

@@ -1,157 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Malang Sports Information System</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="DirectoryPlus template project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-<div class="site-wrap" style="padding : 10%;">
-	<div class="site-blocks-cover overlay" style="background-image: url(asset/images/swim.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-      <div class="container">
-        <div class="row align-items-center justify-content-center text-center">
-          <div class="col-md-10">
-            <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Property Details of</span>
-            <h1 class="mb-2">625 S. Berendo St</h1>
-            <p class="mb-5"><strong class="h2 text-success font-weight-bold">$1,000,500</strong></p>
-          </div>
+<div class="super_container">
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+        <!--Carousel Wrapper-->
+        <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel" style="padding-top:10%; " >
+            <?php foreach ($tempat_list as $key) { ?>
+                <!--Slides-->
+                <div class="carousel-inner" role="listbox" style="display: flex; justify-content: center;">
+                    <div class="carousel-item active">
+                    <center>
+                        <img width="90%" height="800" src="<?php echo base_url('uploads/files/').$key->foto?>"></li>
+                    </center>
+                    </div>
+                </div>
+                <!--Controls-->
+                <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>            
+            <?php }?>
         </div>
-      </div>
-    </div>
+        <!--/.Carousel Wrapper-->
+        <div class="listing" style="padding-top:1%">
+            <div class="container">
+                    <div class="row">
+                        <!-- Listing Content -->
+                        <div class="col-md-8" style="padding-top:5%">
+                            <div class="listing_content">
+                                <?php foreach ($tempat_list as $key) { ?>
+                                    <div class="section_title">
+                                        <h1><?php echo $key->nama_tempat ?></h1>
+                                    </div>
+                                    <div class="listing_text">
+                                        <p style="color:red;">
+                                            <?php echo $key->nama_olahraga ?>
+                                        </p>
+                                    </div>
+                                    <div class="listing_text">
+                                        <p>
+                                            <?php echo $key->alamat ?>
+                                        </p>
+                                    </div>
+                                    <?php } ?>
+                                        <div class="reviews">
+                                            <!-- Reviews -->
+                                            <div class="section_title">
+                                                <h1>Review User</h1>
+                                            </div>
+                                            <?php foreach ($review_list as $key) { ?>
+                                                <div class="reviews_container">
+                                                    <!-- Review -->
+                                                    <?php echo form_open_multipart('detail/createUlasan'); ?>
+                                                    <div class="review d-flex flex-lg-row flex-column align-items-start justify-content-start">
+                                                        <div class="review_content">
+                                                            <div class="review_title_container d-flex flex-row align-items-start justify-content-start">
+                                                                <div class="review_title" style="font-weight:bold">
+                                                                    <?php echo $key->nama ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="review_text">
+                                                                <p>
+                                                                    <?php echo $key->ulasan ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php echo form_close(); ?>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                            </div>
+                            <div style="padding-top:20px;">
+                                <div id="comment-message" class="form-row">
+                                    <textarea style="width:25%;" name="ulasan" placeholder="Komentari" id="ulasan"></textarea>
+                                    <button type="button" class="btn btn-primary">Kirim</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4" style="padding-top:5%">
+                            <div class="sidebar">
+                                <!-- Work Hours -->
+                                <?php foreach ($tempat_list as $key) { ?>
+                                    <div class="work_hours d-flex flex-row align-items-center justify-content-start">
+                                        <div class="closed">
+                                            <?php echo $key->hari_buka ?>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <?php echo $key->jam_buka ?> -
+                                                <?php echo $key->jam_tutup ?>
+                                        </div>
+                                    </div>
 
-    <div class="site-section site-section-sm">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8" style="margin-top: -150px;">
-            <div class="mb-5">
-              <div class="slide-one-item home-slider owl-carousel">
-                <div><img src="<?php echo base_url(''); ?>assets/images/img_1.jpg" alt="Image" class="img-fluid"></div>
-                <div><img src="<?php echo base_url(''); ?>assets/images/img_2.jpg" alt="Image" class="img-fluid"></div>
-                <div><img src="<?php echo base_url(''); ?>assets/images/img_3.jpg" alt="Image" class="img-fluid"></div>
-              </div>
+                                    <!-- Info -->
+                                    <div class="sidebar_info">
+                                        <ul>
+                                            <li class="d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sidebar_info_icon"><img src="asset/images/info_1.png" alt=""></div>
+                                                <div class="sidebar_info_content"><span>Alamat: </span>
+                                                    <?php echo $key->alamat ?>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sidebar_info_icon"><img src="asset/images/info_2.png" alt=""></div>
+                                                <div class="sidebar_info_content"><span>Nomor Telepon: </span>
+                                                    <?php echo $key->no_telp ?>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sidebar_info_icon"><img src="asset/images/info_3.png" alt=""></div>
+                                                <div class="sidebar_info_content"><span>Harga: </span>
+                                                    <?php echo $key->harga ?>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <?php } ?>
+                            </div>
+                            <!-- Google Map -->
+                            <div class="col-xl-6" z-index:3;>
+                                <div class="listings_map">
+                                    <div class="map" style="padding-top:5%">
+                                        <div id="google_map" class="google_map" style="width:350px;height:400px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php echo form_close();?>
             </div>
-            <div class="bg-white">
-              <div class="row mb-5">
-                <div class="col-md-6">
-                  <strong class="text-success h1 mb-3">$1,000,500</strong>
-                </div>
-                <div class="col-md-6">
-                  <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
-                  <li>
-                    <span class="property-specs">Beds</span>
-                    <span class="property-specs-number">2 <sup>+</sup></span>
-                    
-                  </li>
-                  <li>
-                    <span class="property-specs">Baths</span>
-                    <span class="property-specs-number">2</span>
-                    
-                  </li>
-                  <li>
-                    <span class="property-specs">SQ FT</span>
-                    <span class="property-specs-number">7,000</span>
-                    
-                  </li>
-                </ul>
-                </div>
-              </div>
-              <div class="row mb-5">
-                <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
-                  <span class="d-inline-block text-black mb-0 caption-text">Home Type</span>
-                  <strong class="d-block">Condo</strong>
-                </div>
-                <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
-                  <span class="d-inline-block text-black mb-0 caption-text">Year Built</span>
-                  <strong class="d-block">2018</strong>
-                </div>
-                <div class="col-md-6 col-lg-4 text-left border-bottom border-top py-3">
-                  <span class="d-inline-block text-black mb-0 caption-text">Price/Sqft</span>
-                  <strong class="d-block">$520</strong>
-                </div>
-              </div>
-              <h2 class="h4 text-black">More Info</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aperiam perferendis deleniti vitae asperiores accusamus tempora facilis sapiente, quas! Quos asperiores alias fugiat sunt tempora molestias quo deserunt similique sequi.</p>
-              <p>Nisi voluptatum error ipsum repudiandae, autem deleniti, velit dolorem enim quaerat rerum incidunt sed, qui ducimus! Tempora architecto non, eligendi vitae dolorem laudantium dolore blanditiis assumenda in eos hic unde.</p>
-              <p>Voluptatum debitis cupiditate vero tempora error fugit aspernatur sint veniam laboriosam eaque eum, et hic odio quibusdam molestias corporis dicta! Beatae id magni, laudantium nulla iure ea sunt aliquam.</p>
-
-              <div class="row mt-5">
-                <div class="col-12">
-                  <h2 class="h4 text-black mb-3">Property Gallery</h2>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="<?php echo base_url(''); ?>assets/images/img_1.jpg" class="image-popup gal-item"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="<?php echo base_url(''); ?>assets/images/img_2.jpg" class="image-popup gal-item"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="<?php echo base_url(''); ?>assets/images/img_3.jpg" class="image-popup gal-item"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="<?php echo base_url(''); ?>assets/images/img_4.jpg" class="image-popup gal-item"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="<?php echo base_url(''); ?>assets/images/img_5.jpg" class="image-popup gal-item"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="assets/images/img_6.jpg" class="image-popup gal-item"><img src="images/img_6.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="assets/images/img_7.jpg" class="image-popup gal-item"><img src="images/img_7.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="assets/images/img_8.jpg" class="image-popup gal-item"><img src="images/img_8.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="assets/images/img_1.jpg" class="image-popup gal-item"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="assets/images/img_2.jpg" class="image-popup gal-item"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="assets/images/img_3.jpg" class="image-popup gal-item"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                  <a href="assets/images/img_4.jpg" class="image-popup gal-item"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 pl-md-5">
-
-            <div class="bg-white widget border rounded">
-
-              <h3 class="h4 text-black widget-title mb-3">Contact Agent</h3>
-              <form action="" class="form-contact-agent">
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" id="name" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" id="email" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="phone">Phone</label>
-                  <input type="text" id="phone" class="form-control">
-                </div>
-                <div class="form-group">
-                  <input type="submit" id="phone" class="btn btn-primary" value="Send Message">
-                </div>
-              </form>
-            </div>
-
-            <div class="bg-white widget border rounded">
-              <h3 class="h4 text-black widget-title mb-3">Paragraph</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit qui explicabo, libero nam, saepe eligendi. Molestias maiores illum error rerum. Exercitationem ullam saepe, minus, reiciendis ducimus quis. Illo, quisquam, veritatis.</p>
-            </div>
-
-          </div>
-          
         </div>
-      </div>
-    </div>
 </div>
-</body>
+</div>
+<!-- Gmaps -->
+<script>
+
+    function allMap(){
+        var url = "http://localhost/olahraga/olahraga/setData";
+        $.ajax({
+            url:url,
+            type:"GET",
+            dataType:'json',
+            success:function(response){
+                console.log(response[0].longitude);
+            }
+        })
+    }
+
+    function myMap() {
+        allMap();
+        var mapProp = {
+            //latlong malang
+            center: new google.maps.LatLng(-7.983908, 112.621391),
+            zoom: 15
+        };
+
+        var map = new google.maps.Map(document.getElementById("google_map"), mapProp);
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(-7.983908, 112.621391),
+            animation: google.maps.Animation.BOUNCE
+        });
+        marker.setMap(map);
+    
+    }
+
+    // Gson gson = new Gson();
+    //         java.sql.Connection con = new DBConn().getConnection(); //establish the database connection you use
+
+    //         String getquery = "SELECT * from tempat";
+
+    //         ResultSet res = DBHandle.getData(con, getquery); 
+    //         ArrayList<Marker> markerList;
+    //         markerList = new ArrayList<Marker>();
+
+    //         while (res.next()) {
+
+    //           Marker marker=new Marker(); //model class with attributes latitude,longitude and name along with their getters and setters
+    //           marker.setLatitude(res.getString("latitude"));
+    //           marker.setLongitude(res.getString("longitude"));
+    //           marker.setName(res.getString("nama_tempat"));
+    //           animation: google.maps.Animation.BOUNCE
+    //           markerList.add(marker);
+
+    //         }
+    //         String JsonString = gson.toJson(markerList, ArrayList.class);
+    //         out.print(JsonString);
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCZiFA_tn3XBDOzHE2Pd1TEi39LhHSbWLw&callback=myMap"></script>

@@ -3,67 +3,61 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-    // public function __construct(){
-	// 	parent::__construct();
-	// 	//load Login_model.php	
-	// 	$this->load->model('login_model');
-	// 	//check the username is already set up or not
-	// 	if ($this->session->userdata('nim','nama','foto')) {
-	// 		//if username is already set up, then check the level of username is admin or member
-	// 		if($this->session->userdata('level') == 'admin'){
-	// 			redirect('member');
-	// 		}elseif($this->session->userdata('level') == 'member'){
-	// 			redirect('user');
-	// 		}
-	// 	}
-    // }
+	public function index()
+	{
+		$this->load->helper('url','form');	
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		$this->load->view('index');
+	}
 
-    // public function index(){
-	// 	$data = array('error' => ''
-	// 				);
-	// 	$this->load->view('login', $data);
-	// }
- 
-	// //function for processing login form
-	// public function login_process(){
-	// 	$nim = $this->input->post('nim');
-	// 	$password = md5($this->input->post('password'));
-	// 				//calling chech_user() function in Login_model.php
-	// 	$result = $this->login_model->check_user($nim, $password); 
- 
-	// 	if($result->num_rows() > 0){
-	// 		foreach ($result->result() as $row) {
-	// 			$id = $row->id;
-	// 			$nim= $row->nim;
-	// 			$nama= $row->nama;
-	// 			$foto= $row->foto;
-	// 			$level = $row->level;
-	// 		}
- 
-	// 		$newdata = array(
-	// 		        'id'  => $id,
-	// 		        'nim' => $nim,
-	// 		        'nama' => $nama,
-	// 		        'foto' => $foto,
-	// 		        'level' => $level,
-	// 		        'logged_in' => TRUE
-	// 		);
-			
-	// 		//set up session data
-	// 		$this->session->set_userdata($newdata);
-	// 		if($this->session->userdata('level')=='admin') {
-	// 			redirect('member');
-	// 		}elseif ($this->session->userdata('level')=='member') {
-	// 			redirect('user');
-	// 		}
-	// 	}else{
-	// 		$this->load->view('login_salah');
-	// 	}
-	// }
- 
-	// public function register(){
-	// 	$data = array('error' => ''
-	// 				);
-	// 	$this->load->view('login', $data);
-	// }
+	public function cekLogin()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_cekDb');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('index');
+		}else{
+			redirect('admin','refresh');
+		}
+	}
+
+	public function cekDb($password)
+	{
+		$this->load->model('admin_model');
+		$username = $this->input->post('username');
+		$result = $this->admin_model->login($username, $password);
+		if ($result) {
+				$sess_array = array();
+				foreach ($result as $row) {
+					$sess_array = array(
+							'id'=>$row->id_user,
+							'username'=> $row->username,
+							'nama'=> $row->nama,
+							'password'=> $row->password,
+							'level'=> $row->level
+						);
+					$this->session->set_userdata('logged_in', $sess_array);
+				}
+				return true;
+		}else{
+			//var_dump($result);
+			$this->form_validation->set_message('cekDb', "Incorrect username or password.");
+			return false;
+		}	
+	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata('logged_in');
+		$this->session->sess_destroy();
+		redirect('login','refresh');
+	}
+
 }
+
+/* End of file Login.php */
+/* Location: ./application/controllers/Login.php */
+?>
